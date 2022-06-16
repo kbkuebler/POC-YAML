@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fio-baseline
+  namespace: portworx
+spec:
+  nodeName: $NODE
+  containers:
+  - name: fio-write
+    image: dmonakhov/alpine-fio
+    args:
+    - "sleep"
+    - "100000"
+    volumeMounts:
+    - mountPath: /fiocfg
+      name: fiocfg
+    - mountPath: /data
+      name: data-volume
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      privileged: true
+  restartPolicy: Never
+  volumes:
+  - name: fiocfg
+    configMap:
+      name: fiocfg
+  - name: data-volume
+    hostPath:
+      path: /data
+      type: Directory

@@ -1,0 +1,16 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-data-encrypted
+  namespace: postgres
+  annotations:
+    px/secret-name: postgres-encryption-key
+    px/secret-namespace: postgres
+    px/secret-key: secure-pvc
+spec:
+  storageClassName: px-postgres-sc
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

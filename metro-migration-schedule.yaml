@@ -1,0 +1,15 @@
+apiVersion: stork.libopenstorage.org/v1alpha1
+kind: MigrationSchedule
+metadata:
+  name: postgresmigrationschedule
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      clusterPair: cluster-2
+      includeResources: true
+      startApplications: false
+      includeVolumes: false
+      namespaces:
+      - postgres
+  schedulePolicyName: 5min-policy
